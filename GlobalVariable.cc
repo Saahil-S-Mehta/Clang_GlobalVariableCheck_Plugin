@@ -56,10 +56,16 @@ public:
 				"Name beginning with underscore: '%0'");
 	}
 
+	void displayDiag(SourceLocation loc, std::string varName){
+		d.Report(context->getFullLoc(loc), 
+		d.getCustomDiagID(DiagnosticsEngine::Warning, "Bad Implementation :: No Usage of Global Variable '%0'")) 
+		<< varName;
+	}
+
 	void displayDiag(SourceLocation loc, std::string varName, std::string funcName){
 		d.Report(context->getFullLoc(loc), 
-		d.getCustomDiagID(DiagnosticsEngine::Warning, "Bad Implementation of Global Variable '%0' Found in '%1'")) 
-		<< varName << funcName;
+		d.getCustomDiagID(DiagnosticsEngine::Warning, "Bad Implementation :: Single Usage of Global Variable '%0' Found in '%1' line %2")) 
+		<< varName << funcName << functionSpan[funcName].begin()->first;
 	}
 
 	virtual bool VisitFunctionDecl(FunctionDecl *d) {
@@ -91,7 +97,7 @@ public:
 		const auto referencedDecl = d->getReferencedDeclOfCallee();
 
 		VarDecl* var;
-		if(referencedDecl) var = (VarDecl*)cast<VarDecl>(referencedDecl);
+		if(referencedDecl) var = (VarDecl*)dyn_cast<VarDecl>(referencedDecl);
 		if(var && globalVarReferences.count(var)){ 
 			auto varLoc = context->getFullLoc((d->getLocation())).getSpellingLineNumber();
 			for(auto function: functionSpan){
@@ -122,14 +128,12 @@ public:
 		for (itr = globalVarReferences.begin(); itr != globalVarReferences.end(); ++itr) {
 			std::set<std::string> temp = itr->second;
 
-			if(temp.size() > 1){
-				continue;
-			}
-			for (auto temp_itr = temp.begin(); temp_itr != temp.end(); temp_itr++) {
+			if(temp.size() > 1) continue;
+			else if(temp.size() == 0) 
+				visitor.getDerived().displayDiag(itr->first->getLocation(), itr->first->getNameAsString());
+			else
+				visitor.getDerived().displayDiag(itr->first->getLocation(), itr->first->getNameAsString(), (temp.begin())->c_str());
 
-				visitor.getDerived().displayDiag(itr->first->getLocation(), itr->first->getNameAsString(), (temp_itr)->c_str());
-
-			}
     	}	
 	}
 
