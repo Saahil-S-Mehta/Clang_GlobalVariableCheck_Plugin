@@ -1,0 +1,12 @@
+/home/saahil/Desktop/CD7/CMakeFiles/install/local.dir
+/home/saahil/Desktop/CD7/CMakeFiles/install-GlobalVariable-stripped.dir
+/home/saahil/Desktop/CD7/CMakeFiles/install.dir
+/home/saahil/Desktop/CD7/CMakeFiles/list_install_components.dir
+/home/saahil/Desktop/CD7/CMakeFiles/rebuild_cache.dir
+/home/saahil/Desktop/CD7/CMakeFiles/install-GlobalVariable.dir
+/home/saahil/Desktop/CD7/CMakeFiles/GlobalVariable.dir
+/home/saahil/Desktop/CD7/CMakeFiles/acc_gen.dir
+/home/saahil/Desktop/CD7/CMakeFiles/edit_cache.dir
+/home/saahil/Desktop/CD7/CMakeFiles/omp_gen.dir
+/home/saahil/Desktop/CD7/CMakeFiles/install/strip.dir
+/home/saahil/Desktop/CD7/CMakeFiles/intrinsics_gen.dir

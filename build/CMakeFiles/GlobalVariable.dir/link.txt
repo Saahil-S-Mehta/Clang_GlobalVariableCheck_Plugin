@@ -1,0 +1,1 @@
+/usr/bin/clang++-11 -fPIC -g  -Wl,-rpath-link,  -Wl,-O3 -Wl,--gc-sections -shared  -o GlobalVariable.so CMakeFiles/GlobalVariable.dir/GlobalVariable.cc.o  -Wl,-rpath,"\$ORIGIN/../lib:/usr/lib/llvm-11/lib" /usr/lib/llvm-11/lib/libLLVM-11.so.1 
